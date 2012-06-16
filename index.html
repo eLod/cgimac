@@ -9,15 +9,17 @@
   <h1>Can Google Index My AJAX Content</h1>
   <script type="text/javascript">
     $(function() {
-      function repeatGet(step) {
-        window.setTimeout(function() {
+      var step = 0;
+      function get () {
+        (function(step) {
           $.get("", function () {
             $("body").append('<section>Fetched data after ' + step * 5 + ' seconds.</section>');
-            repeatGet(step + 1);
           });
-        }, step * 5000)
+        })(step);
+        step = step + 1;
       }
-      repeatGet(0);
+      get();
+      window.setInterval(get, 5000);
     });
   </script>
 </body>
